@@ -7,7 +7,11 @@ Examples:
 
 */
 function doubleValues(arr){
-    
+    let newArr = [];
+    arr.forEach(function(val){
+        newArr.push(val * 2);
+    });
+return newArr;
 }
 
 /*
@@ -19,7 +23,11 @@ Examples:
 
 */
 function onlyEvenValues(arr){
-    
+    let newArr = [];
+    arr.forEach(function(val){
+        newArr.push(val % 2 === 0)
+    })
+    return newArr;
 }
 
 /*
@@ -31,7 +39,11 @@ Examples:
 
 */
 function showFirstAndLast(arr){
-    
+    let newArr = [];
+    arr.forEach(function(val){
+        newArr.push(val[0] + val[val.length -1]);
+    })
+    return newArr;
 }
 
 /*
@@ -43,8 +55,11 @@ Examples:
     // [{name: 'Elie', title:'instructor'}, {name: 'Tim', title:'instructor'}, {name: 'Matt', title:'instructor'}, {name: 'Colt', title:'instructor'}]
 
 */
-function addKeyAndValue(arr,key,value){
-    
+function addKeyAndValue(arr,key,value){//key, value pair passed in to be added to array
+    arr.forEach(function(obj){ //obj is what is associated with each index(each iteration) and also represents one of the objects in the input array
+        obj[key] = value; //adding a key to the object  and since we want to add the same key to every object it is passed as an argument and remains constant
+    });
+    return arr;
 }
 
 /*
@@ -58,7 +73,17 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 function vowelCount(str){
-   
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+  const count = {};
+
+  str = str.toLowerCase();
+
+  Array.from(str).forEach(function(char){
+    if (vowels.includes(char)){
+        count[char] = (count[char] || 0) + 1;
+    }
+  })
+  return count;
 }
 
 /*
@@ -69,7 +94,11 @@ Examples:
     doubleValuesWithMap([1,-2,-3]) // [2,-4,-6]
 */
 
-function doubleValuesWithMap(arr) {}
+function doubleValuesWithMap(arr) {//same as forEach but no array is needed to be defined or push
+    return arr.map(function(val){//must add return to this or it will be undefined
+         return val * 2;
+    });
+}
 
 /*
 Write a function called valTimesIndex which accepts an array and returns a new array with each value multiplied by the index it is currently at in the array.
@@ -80,7 +109,9 @@ Examples:
 */
 
 function valTimesIndex(arr){
-    
+    return arr.map(function(val, idx) {//idx automatically represents the index of the current element in the iteration
+        return val * idx;
+      }); 
 }
 
 /*
@@ -91,7 +122,9 @@ Examples:
 */
 
 function extractKey(arr, key){
-    
+    return arr.map(function (obj){
+        return obj[key];//accessing the value of the key in the obj
+    });
 }
 
 /*
@@ -102,7 +135,9 @@ Examples:
 */
 
 function extractFullName(arr){
-    
+    return arr.map(function(val) {
+        return val.first + " " + val.last;
+      });
 }
 
 /*
@@ -122,8 +157,13 @@ Examples:
     find([1,2,3,4,5], 10) // undefined
 */
 
-function find(arr, searchValue) {}
-
+function find(arr, searchValue) {
+    const filteredArray = arr.filter(function(element){
+        if (element === searchValue);
+        return element;
+    })
+    return undefined;
+}
 /*
 Write a function called findInObj which accepts an array of objects, a key, and some value to search for and returns the first found value in the array.
 
@@ -142,8 +182,15 @@ Examples:
     removeVowels('ZZZZZZ') // ('zzzzzz')
 */
 
-function removeVowels(str) {}
+function removeVowels(str) {
+const vowels = ['a', 'e', 'i', 'o', 'u'];
+const lowercaseStr = str.toLowerCase();
 
+const filteredChars = Array.from(lowercaseStr).filter(function(char) {
+   return !vowels.includes(char)
+})
+return filteredChars.join('');
+}
 /*
 Write a function called doubleOddNumbers which accepts an array and returns a new array with all of the odd numbers doubled (HINT - you can use map and filter to double and then filter the odd numbers).
 
@@ -152,4 +199,12 @@ Examples:
     doubleOddNumbers([4,4,4,4,4]) // []
 */
 
-function doubleOddNumbers(arr) {}
+function doubleOddNumbers(arr) {
+return arr
+.filter(function(val) {
+  return val % 2 !== 0;
+})
+.map(function(val) {
+  return val * 2;
+});
+}
